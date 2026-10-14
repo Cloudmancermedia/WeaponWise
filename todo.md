@@ -43,11 +43,18 @@ needs the Forever client.
 
 ## Still to test in game
 
-- [ ] Shaman: two-handed axe shows Hanashi + "New in Forever"; two-handed mace shows known + "New in Forever"
+- [x] Owner 2026-10-14: Shaman two-handed axe shows Hanashi + "New in Forever"; two-handed mace shows known +
+  "New in Forever"; tracking key reset; no Lua errors through all tests
+- [x] Druid polearms not testable in game yet (no Druid or polearm). spec/forever_spec.lua runs every Forever
+  addition, both factions, trained and untrained, through Lookup + Tooltip with the real data, the same path
+  the owner verified for Shaman and Rogue. It also checks the polearm 1g / level 20 line.
+- [ ] Owner: Druid polearm in game when one is available (orange level line + "New in Forever")
 - [ ] Scenario 5: after training a weapon skill, its tooltip flips to "You know this weapon skill" without /reload
-- [ ] Auction house: unconfirmed. The 2026-10-13 click log holds no AH entries, so either AH rows never call
-  HandleModifiedItemClick or /ww clicktest was off. Retest: /ww clicktest (chat prints "click:" per click),
-  Alt + Left-Click and Ctrl + Right-Click a weapon row, /ww clicktest, /reload. Not a release blocker.
+  (owner plans to train Axes on a Paladin)
+- [x] Auction house, owner 2026-10-14 with /ww clicktest on: neither Ctrl + Right-Click nor Alt + Left-Click
+  printed anything, so AH rows never call HandleModifiedItemClick. Tracking does not work from the AH.
+- [ ] The AH tooltip still shows "Ctrl + Right-Click to track trainer". Hide it there; needs the AH row's
+  frame name (/dump GameTooltip:GetOwner():GetDebugName() while hovering an AH weapon).
 - [ ] Release smoke test: swap the dev symlink for the built zip, /reload, check tooltips and that /ww lists
   only config and set, then restore the symlink
 
