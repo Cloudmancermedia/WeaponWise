@@ -49,12 +49,12 @@ needs the Forever client.
   addition, both factions, trained and untrained, through Lookup + Tooltip with the real data, the same path
   the owner verified for Shaman and Rogue. It also checks the polearm 1g / level 20 line.
 - [ ] Owner: Druid polearm in game when one is available (orange level line + "New in Forever")
-- [ ] Scenario 5: after training a weapon skill, its tooltip flips to "You know this weapon skill" without /reload
-  (owner plans to train Axes on a Paladin)
+- [x] Scenario 5, owner 2026-10-14: after training Bows on the Rogue, the tooltip switched to the known line
 - [x] Auction house, owner 2026-10-14 with /ww clicktest on: neither Ctrl + Right-Click nor Alt + Left-Click
   printed anything, so AH rows never call HandleModifiedItemClick. Tracking does not work from the AH.
-- [ ] The AH tooltip still shows "Ctrl + Right-Click to track trainer". Hide it there; needs the AH row's
-  frame name (/dump GameTooltip:GetOwner():GetDebugName() while hovering an AH weapon).
+- [x] Track hint hidden on AH tooltips. AH row owner path (owner /dump, 2026-10-14):
+  AuctionHouseFrame.BrowseResultsFrame.ItemList.ScrollBox.ScrollTarget.<row>
+- [ ] Owner: hover an AH weapon after /reload; the "to track trainer" hint should be gone
 - [ ] Release smoke test: swap the dev symlink for the built zip, /reload, check tooltips and that /ww lists
   only config and set, then restore the symlink
 

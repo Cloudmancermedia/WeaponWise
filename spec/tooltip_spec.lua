@@ -253,6 +253,30 @@ describe("Tooltip hooks", function()
     assert.same({}, added)
   end)
 
+  it("drops the track hint on auction house tooltips, where clicks never reach the addon", function()
+    -- Owner path from the Forever client (2026-10-14):
+    -- AuctionHouseFrame.BrowseResultsFrame.ItemList.ScrollBox.ScrollTarget.<row>
+    local function frame(parent) return { GetParent = function() return parent end } end
+    _G.AuctionHouseFrame = frame(nil)
+    local row = frame(frame(frame(frame(frame(_G.AuctionHouseFrame)))))
+    tooltip.GetOwner = function() return row end
+    ns.Cities = { Orgrimmar = { mapID = 1454 } }
+    ns.Config = { BindingLabel = function() return "Ctrl + Right-Click" end }
+    ns.Lookup.ForLink = function()
+      return { result = { state = "TRAINABLE", weapon = "BOW" },
+        recommended = { name = "Hanashi", city = "Orgrimmar", x = 81.5, y = 19.6 }, alternatives = {} }
+    end
+    ns.Tooltip.Install()
+    tooltip.hooks.OnTooltipSetItem(tooltip)
+    assert.is_nil(table.concat(added, "\n"):find("to track trainer", 1, true))
+
+    added = {}
+    tooltip.GetOwner = function() return frame(nil) end
+    tooltip.hooks.OnTooltipSetItem(tooltip)
+    assert.truthy(table.concat(added, "\n"):find("to track trainer", 1, true))
+    _G.AuctionHouseFrame = nil
+  end)
+
   it("leaves non-weapon tooltips untouched", function()
     tooltip.GetItem = function() return "Linen Shirt", "shirt" end
     ns.Tooltip.Install()

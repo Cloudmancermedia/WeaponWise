@@ -23,7 +23,8 @@ Services/
   Lookup                 item link -> skill state + recommended trainer
 UI/
   Tooltip                renders Lookup results; hooks item tooltips
-  ItemClickHandler       modifier-click on any weapon (via HandleModifiedItemClick) tracks the trainer
+  ItemClickHandler       modifier-click on a weapon in bags, equipment or a merchant tracks the trainer
+                         (auction house rows never reach HandleModifiedItemClick, so the hint is hidden there)
 Dev/                     probe, capture, and click-test tools (left out of release builds)
 tools/                   host-side capture importer and release builder
 ```

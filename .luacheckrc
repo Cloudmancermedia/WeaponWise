@@ -16,7 +16,7 @@ read_globals = {
   "GetContainerItemLink", "GetInventoryItemLink", "NUM_CONTAINER_FRAMES", "MAX_CONTAINER_ITEMS",
   "IsControlKeyDown", "IsAltKeyDown", "IsShiftKeyDown",
   "GetItemInfoInstant", "C_Item", "TooltipDataProcessor", "Enum", "UiMapPoint", "C_SuperTrack",
-  "TomTom", "CreateVector2D", "GetCoinTextureString", "C_CurrencyInfo", "GetMoneyString", "GetMouseButtonClicked",
+  "TomTom", "CreateVector2D", "GetCoinTextureString", "C_CurrencyInfo", "GetMoneyString", "AuctionHouseFrame", "GetMouseButtonClicked",
   "C_SkillInfo", "HandleModifiedItemClick",
 }
 
