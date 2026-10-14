@@ -1,0 +1,24 @@
+## Interface: 16001
+## Title: WeaponWise
+## Notes: Weapon tooltips show your skill, or which trainer teaches it and where.
+## Author: Ryan Williams
+## Version: 0.1.0-dev
+## SavedVariables: WeaponWiseDB, WeaponWiseDevDB
+## OptionalDeps: TomTom
+
+Core.lua
+Config.lua
+Data\WeaponTypes.lua
+Data\ClassWeapons.lua
+Data\Cities.lua
+Data\WeaponTrainers.lua
+Services\WeaponSkillService.lua
+Services\Location.lua
+Services\TrainerService.lua
+Services\NavigationService.lua
+Services\Lookup.lua
+UI\Tooltip.lua
+UI\ItemClickHandler.lua
+Dev\Probe.lua
+Dev\Capture.lua
+Dev\ClickTest.lua
