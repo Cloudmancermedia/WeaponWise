@@ -1,5 +1,5 @@
 -- Points the player at a trainer: native waypoint, TomTom, or plain
--- coordinates in chat, whichever the client supports (spec 3.3).
+-- coordinates in chat, whichever the client supports.
 local _, ns = ...
 
 local NavigationService = {}

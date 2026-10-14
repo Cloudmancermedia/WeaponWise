@@ -1,6 +1,6 @@
 # WeaponWise todo
 
-Working memory for the build. Spec: Obsidian `Personal/_Projects/WeaponWise/Spec.md`.
+Working memory for the build.
 Everything under "Code" is written and unit tested; everything under "In-game"
 needs the Forever client.
 

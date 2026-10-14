@@ -1,4 +1,4 @@
--- Renders Lookup results into item tooltips (spec 2). BuildLines is pure;
+-- Renders Lookup results into item tooltips. BuildLines is pure;
 -- the hook functions below only fetch inputs and add the lines.
 local _, ns = ...
 

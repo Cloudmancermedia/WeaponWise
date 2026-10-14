@@ -1,4 +1,4 @@
--- Modifier-click on a weapon tracks its trainer (spec 3). The hook runs after
+-- Modifier-click on a weapon tracks its trainer. The hook runs after
 -- Blizzard's click code and never touches the item, so this addon cannot
 -- equip, use, or sell anything. On Forever neither Ctrl+Right-Click nor
 -- Alt+Left-Click does anything else to a weapon (owner-tested 2026-10-13).
