@@ -15,15 +15,15 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      # WoW addons run on Lua 5.1 (luacheck std = "lua51").
+      # The specs load the host-side tools (tools/), which need Lua 5.4. luacheck still checks addon code as Lua 5.1.
       - name: Install Lua 5.1 and LuaRocks
-        run: sudo apt-get update && sudo apt-get install -y lua5.1 liblua5.1-0-dev luarocks
+        run: sudo apt-get update && sudo apt-get install -y lua5.4 liblua5.4-dev luarocks
 
       # --local installs into ~/.luarocks, where the Makefile looks for luacheck and busted.
       - name: Install luacheck and busted
         run: |
-          luarocks --lua-version=5.1 install --local luacheck
-          luarocks --lua-version=5.1 install --local busted
+          luarocks --lua-version=5.4 install --local luacheck
+          luarocks --lua-version=5.4 install --local busted
 
       - name: Lint and test
         run: make check
