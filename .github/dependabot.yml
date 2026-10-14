@@ -1,0 +1,10 @@
+# Weekly updates for the SHA-pinned actions, one pull request for all of them.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ["*"]
