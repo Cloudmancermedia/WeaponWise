@@ -102,8 +102,8 @@ ns.WeaponTrainers = {
     faction = "Alliance",
     city = "Stormwind City",
     district = "Trade District",
-    x = 57,
-    y = 57,
+    x = 63,
+    y = 69,
     teaches = { "CROSSBOW", "DAGGER", "POLEARM", "STAFF", "SWORD_1H", "SWORD_2H" },
     services = {
       CROSSBOW = { cost = 1000 },

@@ -34,12 +34,22 @@ needs the Forever client.
 - [x] Trainer data: owner confirmed the wiki lists are current for Forever (2026-10-13); prices
   set to 10s per weapon, polearms 1g at level 20. Captures now optional.
 - [ ] Confirm weapon subclass IDs (hover a few weapons; wrong IDs show wrong or no lines)
-- [ ] Confirm city uiMapIDs (captures record mapID)
+- [x] City uiMapIDs: all six confirmed by owner pin tests 2026-10-13
 - [x] Forever weapon changes, per owner 2026-10-13: Shaman 2H axes/maces, Rogue 1H axes, Druid polearms.
   No others known. (Orc Rogue starts with Axes; Skyborn Shaman starts with 2H Maces. The skill list handles both.)
 - [x] Owner-verified in client 2026-10-13: scenario 1 (known skill), scenario 2 (trainable, mace -> trainer),
   unavailable line, scenario 3 (Ctrl+Right-Click sets native map pin; Thunder Bluff mapID 1456 works)
-- [ ] Scenario 4 (Shift alternatives) and scenario 5 (line flips to known after training)
+- [x] Scenario 4 (Shift alternatives) verified 2026-10-13
+
+## Still to test in game
+
+- [ ] Shaman: two-handed axe shows Hanashi + "New in Forever"; two-handed mace shows known + "New in Forever"
+- [ ] Scenario 5: after training a weapon skill, its tooltip flips to "You know this weapon skill" without /reload
+- [ ] Auction house: unconfirmed. The 2026-10-13 click log holds no AH entries, so either AH rows never call
+  HandleModifiedItemClick or /ww clicktest was off. Retest: /ww clicktest (chat prints "click:" per click),
+  Alt + Left-Click and Ctrl + Right-Click a weapon row, /ww clicktest, /reload. Not a release blocker.
+- [ ] Release smoke test: swap the dev symlink for the built zip, /reload, check tooltips and that /ww lists
+  only config and set, then restore the symlink
 
 ## Release
 
@@ -47,10 +57,10 @@ needs the Forever client.
 - [x] Owner 2026-10-13: Orgrimmar pin works; Shift alternatives show
 - [x] Shift alternatives use the main trainer's format; "Hold Shift for other trainers" hint added
 - [x] Owner 2026-10-13: Shift updates the tooltip in place (RefreshData); coin icons show
-- [ ] Owner: pins in Undercity, Darnassus, Stormwind, Ironforge
+- [x] Owner 2026-10-13: pins correct in all six cities (/ww pin); Woo Ping moved to 63, 69 (owner)
+- [x] Owner 2026-10-13: Ctrl + Right-Click on a merchant item sets the pin and does not buy it
 - [ ] Owner: where to publish (CurseForge / Wago / GitHub / zip)
-- [ ] Git repo and first commit after testing is finished (owner, 2026-10-13)
-- [ ] Install the zip in place of the symlink once and smoke-test it before publishing
+- [x] First commit 28e2c94 pushed to github.com/Cloudmancermedia/WeaponWise main (2026-10-13)
 
 ## Spec note updates (all applied 2026-10-13)
 

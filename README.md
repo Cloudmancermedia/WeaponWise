@@ -83,6 +83,7 @@ to build if any trainer record is unverified.
 | `/ww probe` | Dev: lists which client APIs exist and your weapon skills. |
 | `/ww capture on` | Dev: records every trainer window you open. |
 | `/ww clicktest` | Dev: logs which hooks fire when you modifier-click a weapon. Observes only. |
+| `/ww pin <trainer>` | Dev: sets a trainer's map pin without a weapon, e.g. `/ww pin arch`. No name lists trainers. |
 
 Saved data is written to `WTF/Account/<ACCOUNT>/SavedVariables/WeaponWise.lua`
 on `/reload` or logout. `make import` reads captures from that file, rewrites
