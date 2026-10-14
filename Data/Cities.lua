@@ -1,7 +1,7 @@
 -- Capital cities with weapon masters, keyed by the zone name the client
 -- reports. mapID is the uiMapID used for waypoints; continent is the
 -- continent's uiMapID (Kalimdor 1414, Eastern Kingdoms 1415).
--- UNVERIFIED: Classic Era uiMapIDs. Confirm with /ww capture (it records mapID).
+-- All six confirmed on Forever by setting map pins (2026-10-13).
 local _, ns = ...
 
 ns.Cities = {

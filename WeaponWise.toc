@@ -2,6 +2,7 @@
 ## Title: WeaponWise
 ## Notes: Weapon tooltips show your skill, or which trainer teaches it and where.
 ## Author: Ryan Williams
+## X-License: MIT
 ## Version: 0.1.0-dev
 ## SavedVariables: WeaponWiseDB, WeaponWiseDevDB
 ## OptionalDeps: TomTom

@@ -1,5 +1,5 @@
 -- Weapon types each class can learn, as sets of WeaponTypes keys.
--- ClassicWeapons is the Classic Era baseline, written from memory: UNVERIFIED.
+-- ClassicWeapons is the Classic Era baseline, reviewed by the project owner (2026-10-13).
 -- ForeverAdditions holds what Forever adds on top; tooltips tag those as new.
 local _, ns = ...
 
@@ -24,9 +24,9 @@ ns.ClassicWeapons = {
   DRUID = set({ "MACE_1H", "MACE_2H", "STAFF", "FIST", "DAGGER" }),
 }
 
--- Source: the project owner (2026-10-13), who knows of no other Forever weapon
--- changes. Shaman 2H axes and maces no longer need the Enhancement talent;
--- Druids can train polearms with no talent.
+-- Source: the project owner (2026-10-13). Shaman 2H axes and maces no longer
+-- need the Enhancement talent; Druids can train polearms with no talent. All
+-- four were checked in game (2026-10-14).
 ns.ForeverAdditions = {
   SHAMAN = set({ "AXE_2H", "MACE_2H" }),
   ROGUE = set({ "AXE_1H" }),
