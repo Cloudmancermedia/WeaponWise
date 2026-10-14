@@ -48,6 +48,8 @@ function Release.Build(version)
     if dir then sh("mkdir -p " .. quote(root .. "/" .. dir)) end
     sh("cp " .. quote(path) .. " " .. quote(root .. "/" .. path))
   end
+  -- MIT requires the license notice in every copy.
+  sh("cp LICENSE " .. quote(root .. "/LICENSE"))
   local out = assert(io.open(root .. "/WeaponWise.toc", "w"))
   out:write(toc)
   out:close()

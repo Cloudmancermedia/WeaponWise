@@ -1,4 +1,4 @@
--- Finds and ranks the weapon masters that teach a weapon skill (spec 4).
+-- Finds and ranks the weapon masters that teach a weapon skill.
 local _, ns = ...
 
 local TrainerService = {}
@@ -22,7 +22,7 @@ end
 -- Ranking: trainer in the player's city, then the player's continent (nearest
 -- first when world positions exist), then everyone else. Ties go to verified
 -- records, then data order, so the result never depends on table iteration.
--- Straight-line distance is not travel time; spec 4.2 forbids claiming it is.
+-- Straight-line distance is not travel time, and the addon never claims it is.
 function TrainerService.Recommend(weaponKey, faction, player, worldOf)
   local ranked = {}
   for index, t in ipairs(TrainerService.ForWeapon(weaponKey, faction)) do

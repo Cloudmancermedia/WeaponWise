@@ -1,6 +1,7 @@
--- Phase 0 diagnostic for spec 3.2: logs which hooks fire on modified clicks
+-- Diagnostic: logs which hooks fire on modified clicks
 -- over bag and equipment slots. It observes only and never acts on the item.
 local _, ns = ...
+ns.devTools = true
 
 local ClickTest = {}
 ns.ClickTest = ClickTest

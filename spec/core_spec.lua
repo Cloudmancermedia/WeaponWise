@@ -38,10 +38,18 @@ describe("Core", function()
     assert.same({ "a:WeaponWise", "b:WeaponWise" }, calls)
   end)
 
-  it("creates the dev saved-variable table on load", function()
+  it("creates the dev saved-variable table on load when dev tools are present", function()
     _G.WeaponWiseDevDB = nil
+    ns.devTools = true
     ns.frame.scripts.OnEvent(ns.frame, "ADDON_LOADED", "WeaponWise")
     assert.is_table(_G.WeaponWiseDevDB)
     assert.is_table(ns.devDB)
+  end)
+
+  it("leaves the dev table alone in a release build", function()
+    _G.WeaponWiseDevDB = nil
+    ns.frame.scripts.OnEvent(ns.frame, "ADDON_LOADED", "WeaponWise")
+    assert.is_nil(_G.WeaponWiseDevDB)
+    assert.is_nil(ns.devDB)
   end)
 end)

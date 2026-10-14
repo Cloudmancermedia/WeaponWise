@@ -49,6 +49,9 @@ end)
 
 ns.On("ADDON_LOADED", function(loaded)
   if loaded ~= addonName then return end
+  -- Release builds leave out Dev\ and its saved table, so only make it here
+  -- when a dev tool loaded.
+  if not ns.devTools then return end
   WeaponWiseDevDB = WeaponWiseDevDB or {}
   ns.devDB = WeaponWiseDevDB
 end)

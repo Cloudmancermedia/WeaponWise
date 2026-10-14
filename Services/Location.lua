@@ -1,5 +1,5 @@
 -- Thin wrapper over the client's map APIs. Every function degrades to less
--- information, never an error, when an API is missing (spec 9).
+-- information, never an error, when an API is missing.
 local _, ns = ...
 
 local Location = {}

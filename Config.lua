@@ -1,4 +1,4 @@
--- Settings from spec 8, stored per account in WeaponWiseDB and changed with
+-- Settings, stored per account in WeaponWiseDB and changed with
 -- /ww set <key> <value>. No options panel or minimap button.
 local addonName, ns = ...
 
@@ -19,7 +19,7 @@ Config.defaults = {
   preferTomTom = false,
 }
 
--- Supported tracking clicks and how the tooltip hint names them (spec 3.2).
+-- Supported tracking clicks and how the tooltip hint names them.
 Config.bindings = { ["CTRL-RightButton"] = "Ctrl + Right-Click", ["ALT-LeftButton"] = "Alt + Left-Click" }
 
 function Config.BindingLabel(binding)

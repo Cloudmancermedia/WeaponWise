@@ -1,13 +1,14 @@
 -- Phase 0 diagnostic: reports which client APIs exist so the design can be
 -- settled against the real Forever client instead of assumptions.
 local _, ns = ...
+ns.devTools = true
 
 local Probe = {}
 ns.Probe = Probe
 
 -- Each entry answers a design question in the spec.
 local APIS = {
-  -- Location and native waypoints (spec 3.3, 4.2)
+  -- Location and native waypoints
   "C_Map.GetBestMapForUnit",
   "C_Map.GetPlayerMapPosition",
   "C_Map.GetMapInfo",
@@ -15,15 +16,15 @@ local APIS = {
   "C_Map.SetUserWaypoint",
   "C_SuperTrack.SetSuperTrackedUserWaypoint",
   "UiMapPoint.CreateFromCoordinates",
-  -- Tooltip hooking (spec 2)
+  -- Tooltip hooking
   "TooltipDataProcessor.AddTooltipPostCall",
   "GameTooltip.RefreshData",
-  -- Item identification (FR-001)
+  -- Item identification
   "GetItemInfoInstant",
   "C_Item.GetItemInfoInstant",
   "C_Container.GetContainerItemLink",
   "GetContainerItemLink",
-  -- Skill reading (FR-003)
+  -- Skill reading
   "GetNumSkillLines",
   "GetSkillLineInfo",
   "C_SkillInfo.GetNumSkillLines",
@@ -32,7 +33,7 @@ local APIS = {
   "C_CurrencyInfo.GetCoinTextureString",
   "GetMoneyString",
   "GetCoinTextureString",
-  -- Modifier-click hooks (spec 3.2)
+  -- Modifier-click hooks
   "HandleModifiedItemClick",
   "ContainerFrameItemButton_OnModifiedClick",
   "PaperDollItemSlotButton_OnModifiedClick",

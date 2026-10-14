@@ -1,6 +1,6 @@
 # WeaponWise todo
 
-Working memory for the build. Spec: Obsidian `Personal/_Projects/WeaponWise/Spec.md`.
+Working memory for the build.
 Everything under "Code" is written and unit tested; everything under "In-game"
 needs the Forever client.
 
@@ -69,7 +69,10 @@ needs the Forever client.
 - [x] Owner 2026-10-13: Shift updates the tooltip in place (RefreshData); coin icons show
 - [x] Owner 2026-10-13: pins correct in all six cities (/ww pin); Woo Ping moved to 63, 69 (owner)
 - [x] Owner 2026-10-13: Ctrl + Right-Click on a merchant item sets the pin and does not buy it
-- [ ] Owner: where to publish (CurseForge / Wago / GitHub / zip)
+- [x] Publish on CurseForge (owner, 2026-10-14); first release by manual zip upload, Forever game version
+- [x] MIT license (owner, 2026-10-14); release zips include LICENSE
+- [x] Release builds no longer create WeaponWiseDevDB
+- [ ] Owner: create the CurseForge project; I draft the description and changelog
 - [x] First commit 28e2c94 pushed to github.com/Cloudmancermedia/WeaponWise main (2026-10-13)
 
 ## Spec note updates (all applied 2026-10-13)

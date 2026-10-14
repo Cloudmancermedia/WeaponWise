@@ -1,59 +1,90 @@
 # WeaponWise
 
-A World of Warcraft: Forever addon. Weapon tooltips show your current skill
-with the weapon type, or which trainer teaches it, where they stand, and what
-it costs. Weapons your class gained in Forever, such as two-handed axes and
-maces for Shamans or polearms for Druids, are tagged "New in Forever". The full spec lives in
-Obsidian at `Personal/_Projects/WeaponWise/Spec.md`.
-
-Status: 0.1.0-dev. All features are coded and unit tested, and the owner has
-checked the tooltip lines and map pins in the Forever client. See `todo.md`.
-
-## How it works
+A World of Warcraft: Forever addon that answers one question when you hover a
+weapon: can I use this, and if not, where do I learn it?
 
 ```
-Core.lua                 namespace, slash commands, event dispatch
-Config.lua               settings (WeaponWiseDB), /ww set and /ww config
-Data/                    weapon types, class rules, cities, trainers
-Services/
-  WeaponSkillService     KNOWN / TRAINABLE / UNAVAILABLE for a weapon subclass
-  TrainerService         trainers for a weapon, ranked by city, continent, distance
-  Location               player and trainer positions from the map APIs
-  NavigationService      native waypoint, TomTom, or coordinates in chat
-  Lookup                 item link -> skill state + recommended trainer
-UI/
-  Tooltip                renders Lookup results; hooks item tooltips
-  ItemClickHandler       modifier-click on a weapon in bags, equipment or a merchant tracks the trainer
-                         (auction house rows and chat links never reach it, so the hint is hidden there)
-Dev/                     probe, capture, and click-test tools (left out of release builds)
-tools/                   host-side capture importer and release builder
+Can be trained by Hanashi (Orgrimmar)
+Valley of Honor (81.5, 19.6) · Cost: 10s
+New in Forever
+
+Hold Shift for other trainers
+Ctrl + Right-Click to track trainer
 ```
 
-The services hold the logic and have no frame code, so the tests exercise them
-directly. The UI files only gather inputs and add lines.
+## Features
 
-Class rules come in two layers. `ClassicWeapons` is the Classic Era baseline and
-`ForeverAdditions` lists what Forever adds; the additions drive the
-"New in Forever" tag.
+- **Your skill.** Weapons you know show your current skill, for example
+  "You know this weapon skill (50/60)".
+- **Where to train.** Weapons your class can learn show the weapon master,
+  their city and district, map coordinates, the cost, and any level
+  requirement. The first trainer listed is the one nearest to you.
+- **Other trainers.** Hold Shift to list every other trainer for that weapon.
+  The tooltip updates as you press the key.
+- **Map pins.** Ctrl + Right-Click a weapon in your bags, on your character or
+  at a merchant to pin its trainer on the map. TomTom is used if you prefer it.
+- **Forever changes.** Weapons Forever added to a class are tagged
+  "New in Forever": two-handed axes and maces for Shamans, one-handed axes for
+  Rogues, and polearms for Druids.
+- **Weapons you can't use** say so in red.
 
-Whether you know a weapon skill comes from your character's skill list, matched
-by skill ID so every client language works (the enUS name is the fallback), so
-racial or starting skills need no data. The class tables only answer the
-other question: for a skill you lack, can your class train it at all?
+## Install
 
-Trainer records come from wiki lists the owner confirmed for Forever, priced at
-10s per weapon (polearms 1g, level 20). A record with `verified = false` gets an
-"unverified" tag in the tooltip, and the release gate in `spec/toc_spec.lua`
-fails any non-dev version that ships one, or ships dev tools.
+Download the latest release from CurseForge, or a release zip from GitHub, and
+extract the `WeaponWise` folder into
+`World of Warcraft/_classic_beta_/Interface/AddOns/`.
+
+WeaponWise runs on the WoW Forever client (interface 16001). It has no
+required dependencies; TomTom is optional.
+
+## Settings
+
+Type `/ww config` to see your settings and `/ww set <setting> <value>` to change
+one, for example `/ww set showCost off`.
+
+| Setting | Default | What it does |
+|---|---|---|
+| `enabled` | on | Turns the addon on or off. |
+| `showKnown` | on | Shows your skill on weapons you know. |
+| `showTrainable` | on | Shows the trainer on weapons you can learn. |
+| `showUnavailable` | on | Shows the red line on weapons your class can't use. |
+| `showCost` | on | Shows the training cost. |
+| `showCoordinates` | on | Shows the trainer's map coordinates. |
+| `recommendNearest` | on | Lists the nearest trainer first. Off uses a fixed order. |
+| `showAlternatives` | on | Lists other trainers while Shift is held. |
+| `showHint` | on | Shows the Shift and tracking hints. |
+| `trackBinding` | `CTRL-RightButton` | The click that pins a trainer. Also accepts `ALT-LeftButton`. |
+| `preferTomTom` | off | Uses TomTom for pins instead of the built-in map pin. |
+
+## Known limitations
+
+- Clicking a weapon in the auction house or a chat link can't pin its trainer,
+  because the game doesn't pass those clicks to addons. The tracking hint is
+  hidden there.
+- "Nearest" means straight-line distance on your continent, not travel time.
+- Text is English only. Skills are matched by ID, which doesn't depend on the
+  client language, but only the English client has been tested.
 
 ## Development
 
-Tests run outside the game with [busted](https://lunarmodules.github.io/busted/)
-against a small stand-in for the WoW API (`spec/helpers/wow_env.lua`).
-Linting uses [luacheck](https://github.com/lunarmodules/luacheck) with
-`std = "lua51"`, the Lua version the game client runs.
+Code layout:
 
-One-time setup on macOS:
+```
+Core.lua                 namespace, slash commands, events
+Config.lua               settings
+Data/                    weapon types, class weapon lists, cities, trainers
+Services/                skill checks, trainer ranking, location, map pins
+UI/                      tooltip lines and click handling
+Dev/                     diagnostic commands, left out of release builds
+tools/                   release builder and trainer-capture importer
+spec/                    tests
+```
+
+The services hold the logic and touch no game frames, so the tests call them
+directly against a small stand-in for the WoW API in `spec/helpers/wow_env.lua`.
+
+Tests use [busted](https://lunarmodules.github.io/busted/) and linting uses
+[luacheck](https://github.com/lunarmodules/luacheck). Setup on macOS:
 
 ```sh
 brew install lua@5.4 luarocks
@@ -61,33 +92,18 @@ luarocks --lua-version=5.4 --lua-dir="$(brew --prefix lua@5.4)" install --local 
 luarocks --lua-version=5.4 --lua-dir="$(brew --prefix lua@5.4)" install --local luacheck
 ```
 
-Use Lua 5.4. luacheck 1.2.0 fails to load under Lua 5.5.
+Use Lua 5.4; luacheck 1.2.0 doesn't load under Lua 5.5.
 
 ```sh
-make check                                     # lint + tests
-make link ADDONS="/path/to/Interface/AddOns"   # symlink into the game
-make import SV="/path/to/SavedVariables/WeaponWise.lua"   # merge trainer captures
-make release VERSION=0.1.0                     # dist/WeaponWise-0.1.0.zip
+make check                                     # lint and tests
+make link ADDONS="/path/to/Interface/AddOns"   # symlink this checkout into the game
+make release VERSION=0.1.0                     # build dist/WeaponWise-0.1.0.zip
 ```
 
-The checkout always stays a dev build. `make release` runs the checks, then
-copies the files the TOC lists into `dist/WeaponWise/`. It leaves out `Dev\`
-files and `WeaponWiseDevDB`, sets the version, and zips the result. It refuses
-to build if any trainer record is unverified.
+A checkout is a dev build: it loads the `Dev/` commands (`/ww probe`,
+`/ww capture`, `/ww clicktest`, `/ww pin`). `make release` builds the zip
+without them.
 
-## In-game commands
+## License
 
-| Command | What it does |
-|---|---|
-| `/ww config` | Lists settings. |
-| `/ww set <setting> <value>` | Changes a setting, e.g. `/ww set trackBinding ALT-LeftButton`. |
-| `/ww probe` | Dev: lists which client APIs exist and your weapon skills. |
-| `/ww capture on` | Dev: records every trainer window you open. |
-| `/ww clicktest` | Dev: logs which hooks fire when you modifier-click a weapon. Observes only. |
-| `/ww pin <trainer>` | Dev: sets a trainer's map pin without a weapon, e.g. `/ww pin arch`. No name lists trainers. |
-
-Saved data is written to `WTF/Account/<ACCOUNT>/SavedVariables/WeaponWise.lua`
-on `/reload` or logout. `make import` reads captures from that file, rewrites
-`Data/WeaponTrainers.lua`, and lists any weapon a faction still has no trainer
-for. A capture only shows the visiting class's weapons, so a gap usually means
-another class needs to visit that trainer.
+MIT. See [LICENSE](LICENSE).
