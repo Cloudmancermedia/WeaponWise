@@ -138,6 +138,19 @@ local function inAuctionHouse(tooltip)
   return false
 end
 
+-- Tooltips that open from a chat link or compare against equipped gear. No
+-- click on them, or on the chat link itself, reaches the addon (owner-tested
+-- on Forever 2026-10-14).
+local UNCLICKABLE = { "ItemRefTooltip", "ShoppingTooltip1", "ShoppingTooltip2",
+  "ItemRefShoppingTooltip1", "ItemRefShoppingTooltip2" }
+
+local function clickable(tooltip)
+  for _, name in ipairs(UNCLICKABLE) do
+    if tooltip == _G[name] then return false end
+  end
+  return not inAuctionHouse(tooltip)
+end
+
 local function decorate(tooltip, data)
   if not ns.config.enabled then return end
   local info = ns.Lookup.ForLink(itemOf(tooltip, data))
@@ -145,10 +158,10 @@ local function decorate(tooltip, data)
   local rec = info.recommended
   info.playerLevel = UnitLevel("player")
   info.shiftDown = IsShiftKeyDown()
-  -- Tracking works wherever an item can be modifier-clicked except the auction
-  -- house, so the hint needs a trainer with a known map position.
+  -- The hint needs a trainer with a known map position and a tooltip whose
+  -- item can be modifier-clicked.
   info.canTrack = rec ~= nil and rec.x ~= nil and ns.Cities ~= nil and ns.Cities[rec.city] ~= nil
-    and not inAuctionHouse(tooltip)
+    and clickable(tooltip)
   local lines = Tooltip.BuildLines(info)
   if #lines == 0 then return end
   tooltip:AddLine(" ")

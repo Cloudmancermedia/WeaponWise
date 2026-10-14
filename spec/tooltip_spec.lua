@@ -277,6 +277,24 @@ describe("Tooltip hooks", function()
     _G.AuctionHouseFrame = nil
   end)
 
+  it("drops the track hint on chat-link and comparison tooltips, which cannot be clicked", function()
+    ns.Cities = { Orgrimmar = { mapID = 1454 } }
+    ns.Config = { BindingLabel = function() return "Ctrl + Right-Click" end }
+    ns.Lookup.ForLink = function()
+      return { result = { state = "TRAINABLE", weapon = "BOW" },
+        recommended = { name = "Hanashi", city = "Orgrimmar", x = 81.5, y = 19.6 }, alternatives = {} }
+    end
+    ns.Tooltip.Install()
+    for _, name in ipairs({ "ItemRefTooltip", "ShoppingTooltip1", "ShoppingTooltip2" }) do
+      added = {}
+      _G[name] = tooltip
+      tooltip.hooks.OnTooltipSetItem(tooltip)
+      assert.is_nil(table.concat(added, "\n"):find("to track trainer", 1, true), name)
+      assert.truthy(table.concat(added, "\n"):find("Can be trained by", 1, true), name)
+      _G[name] = nil
+    end
+  end)
+
   it("leaves non-weapon tooltips untouched", function()
     tooltip.GetItem = function() return "Linen Shirt", "shirt" end
     ns.Tooltip.Install()

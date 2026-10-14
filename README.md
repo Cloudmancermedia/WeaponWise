@@ -24,7 +24,7 @@ Services/
 UI/
   Tooltip                renders Lookup results; hooks item tooltips
   ItemClickHandler       modifier-click on a weapon in bags, equipment or a merchant tracks the trainer
-                         (auction house rows never reach HandleModifiedItemClick, so the hint is hidden there)
+                         (auction house rows and chat links never reach it, so the hint is hidden there)
 Dev/                     probe, capture, and click-test tools (left out of release builds)
 tools/                   host-side capture importer and release builder
 ```
