@@ -1,0 +1,6 @@
+# Pull requests that touch these paths request the maintainer's review. They can change CI, the
+# release build, or the scripts that rewrite addon data.
+
+/.github/            @Cloudmancermedia
+/tools/              @Cloudmancermedia
+/Makefile            @Cloudmancermedia
