@@ -1,6 +1,7 @@
 -- Phase 0 diagnostic: reports which client APIs exist so the design can be
 -- settled against the real Forever client instead of assumptions.
 local _, ns = ...
+ns.devTools = true
 
 local Probe = {}
 ns.Probe = Probe

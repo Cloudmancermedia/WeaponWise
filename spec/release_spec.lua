@@ -47,6 +47,7 @@ describe("release build", function()
     ns.frame.scripts.OnEvent(ns.frame, "PLAYER_LOGIN")
     assert.equals(_G.WeaponWiseDB, ns.config)
     assert.is_nil(ns.commands.probe)
+    assert.is_nil(_G.WeaponWiseDevDB)
     assert.is_table(ns.commands.set)
     _G.GameTooltip = nil
   end)

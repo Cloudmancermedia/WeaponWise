@@ -1,6 +1,7 @@
 -- Phase 0 data gathering: records every trainer window opened while capture
 -- is on, so the trainer database comes from the Forever client itself.
 local _, ns = ...
+ns.devTools = true
 
 local Capture = {}
 ns.Capture = Capture

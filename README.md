@@ -91,3 +91,7 @@ on `/reload` or logout. `make import` reads captures from that file, rewrites
 `Data/WeaponTrainers.lua`, and lists any weapon a faction still has no trainer
 for. A capture only shows the visiting class's weapons, so a gap usually means
 another class needs to visit that trainer.
+
+## License
+
+MIT. See `LICENSE`. Release zips include it.

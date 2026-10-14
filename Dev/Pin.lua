@@ -1,6 +1,7 @@
 -- Dev check for map pins: /ww pin <trainer> sets the same waypoint a
 -- Ctrl + Right-Click would, for any trainer, without needing a weapon.
 local _, ns = ...
+ns.devTools = true
 
 local function find(query)
   local q = query:lower()

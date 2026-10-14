@@ -20,6 +20,7 @@ describe("WeaponWise.toc", function()
     ns.frame.scripts.OnEvent(ns.frame, "ADDON_LOADED", "WeaponWise")
     ns.frame.scripts.OnEvent(ns.frame, "PLAYER_LOGIN")
     assert.equals(_G.WeaponWiseDB, ns.config)
+    assert.equals(_G.WeaponWiseDevDB, ns.devDB)
     for _, cmd in ipairs({ "probe", "capture", "clicktest", "pin", "set", "config" }) do
       assert.is_table(ns.commands[cmd], cmd)
     end
