@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       # The specs load the host-side tools (tools/), which need Lua 5.4. luacheck still checks addon code as Lua 5.1.
-      - name: Install Lua 5.1 and LuaRocks
+      - name: Install Lua 5.4 and LuaRocks
         run: sudo apt-get update && sudo apt-get install -y lua5.4 liblua5.4-dev luarocks
 
       # --local installs into ~/.luarocks, where the Makefile looks for luacheck and busted.
