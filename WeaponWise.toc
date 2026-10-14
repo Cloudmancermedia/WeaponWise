@@ -22,3 +22,4 @@ UI\ItemClickHandler.lua
 Dev\Probe.lua
 Dev\Capture.lua
 Dev\ClickTest.lua
+Dev\Pin.lua
