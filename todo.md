@@ -1,86 +1,26 @@
 # WeaponWise todo
 
-Working memory for the build.
-Everything under "Code" is written and unit tested; everything under "In-game"
-needs the Forever client.
+Open work. The full build history is in git.
 
-## Code (done)
+## Before the 0.1.0 release
 
-- [x] Phase 0: repo, TOC, Core, busted + luacheck, /ww probe, capture, clicktest
-- [x] Phase 1: WeaponTypes, ClassicWeapons + ForeverAdditions, WeaponSkillService, Tooltip
-- [x] Phase 2: trainer seed data (wiki, unverified), Cities, Location, TrainerService, Lookup
-- [x] Phase 3: NavigationService (native, TomTom, coords), ItemClickHandler
-- [x] Phase 4: Shift alternatives, Config + /ww set, release gate spec, capture importer
+- [ ] Release build check in game: tooltips work, `/ww` lists only `config` and `set`, no errors
+- [ ] Auction house: hovering a weapon shows trainer lines but no tracking hint
+- [ ] Create the CurseForge project and upload the 0.1.0 zip (Forever game version)
 
-## In-game (needs the owner)
+## Not yet confirmed on Forever
 
-- Forever's client runs the modern Mainline UI (TooltipDataProcessor, Mainline/ContainerFrame.lua),
-  not the Classic UI. Bag button names and click hooks are unconfirmed on it; clicktest decides.
-- [x] Fixed: tooltip hook called GetItem on ShoppingTooltip1, which lacks it (reported 2026-10-13)
-- Probe 2026-10-13: interface 16001, native waypoints present, TooltipDataProcessor only,
-  C_Container/C_Item only. GetNumSkillLines/GetSkillLineInfo MISSING: no way yet to read
-  weapon skill. Skill-related functions now listed by /ww probe (skillApis) to find one.
-- [x] Fixed: hovering a weapon crashed in ReadSkills; usable weapons now show nothing until skills can be read
-- [x] Skill API found: C_SkillInfo.GetNumSkillLines / GetSkillLineInfo. ReadSkills uses it if it returns
-  classic-style values; table returns read as unknown until probe.skillLineDump shows the fields
-- [x] C_SkillInfo returns one table per row (name, isHeader, rank, maxRank, skillID, skillLineCategoryID);
-  ReadSkills reads it. Rogue dump: Axes 44, Daggers 173, Swords 43, Thrown 176 all match skillName
-- [x] Skills matched by skillID first, enUS name as fallback. IDs confirmed on Forever: 44, 43, 173, 176
-  (Rogue), 54, 136, 160 (Shaman). The other 8 are Classic Era values; a probe on any class that has them confirms.
-- [x] Clicks: bag and weapon-slot modified clicks all reach HandleModifiedItemClick with the right
-  button; ItemClickHandler now hooks only that. Neither binding does anything else to a weapon.
+- Skill IDs for Two-Handed Axes (172), Bows (45), Guns (46), Polearms (229),
+  Two-Handed Swords (55), Fist Weapons (473), Crossbows (226) and Wands (228)
+  are Classic Era values. An English client still matches by name if one is
+  wrong. `/ww probe` on a character with the skill confirms it.
+- TomTom support has unit tests only.
 
-- [x] Interface number 16001 (from installed addons; probe confirms build). Linked into _classic_beta_/Interface/AddOns
-- [x] Trainer data: owner confirmed the wiki lists are current for Forever (2026-10-13); prices
-  set to 10s per weapon, polearms 1g at level 20. Captures now optional.
-- [ ] Confirm weapon subclass IDs (hover a few weapons; wrong IDs show wrong or no lines)
-- [x] City uiMapIDs: all six confirmed by owner pin tests 2026-10-13
-- [x] Forever weapon changes, per owner 2026-10-13: Shaman 2H axes/maces, Rogue 1H axes, Druid polearms.
-  No others known. (Orc Rogue starts with Axes; Skyborn Shaman starts with 2H Maces. The skill list handles both.)
-- [x] Owner-verified in client 2026-10-13: scenario 1 (known skill), scenario 2 (trainable, mace -> trainer),
-  unavailable line, scenario 3 (Ctrl+Right-Click sets native map pin; Thunder Bluff mapID 1456 works)
-- [x] Scenario 4 (Shift alternatives) verified 2026-10-13
+## Later
 
-## Still to test in game
-
-- [x] Owner 2026-10-14: Shaman two-handed axe shows Hanashi + "New in Forever"; two-handed mace shows known +
-  "New in Forever"; tracking key reset; no Lua errors through all tests
-- [x] Druid polearms not testable in game yet (no Druid or polearm). spec/forever_spec.lua runs every Forever
-  addition, both factions, trained and untrained, through Lookup + Tooltip with the real data, the same path
-  the owner verified for Shaman and Rogue. It also checks the polearm 1g / level 20 line.
-- [x] Owner 2026-10-14, Druid with a linked Impaling Harpoon: Archibald (Undercity), War Quarter (57.0, 32.0),
-  Cost 1g icon, orange "Requires Level 20 to train", "New in Forever"
-- [x] Owner 2026-10-14: Ctrl + Right-Click on a chat link does nothing. Hint now hidden on chat-link
-  (ItemRefTooltip) and comparison (ShoppingTooltip) tooltips
-- [x] Scenario 5, owner 2026-10-14: after training Bows on the Rogue, the tooltip switched to the known line
-- [x] Auction house, owner 2026-10-14 with /ww clicktest on: neither Ctrl + Right-Click nor Alt + Left-Click
-  printed anything, so AH rows never call HandleModifiedItemClick. Tracking does not work from the AH.
-- [x] Track hint hidden on AH tooltips. AH row owner path (owner /dump, 2026-10-14):
-  AuctionHouseFrame.BrowseResultsFrame.ItemList.ScrollBox.ScrollTarget.<row>
-- [ ] Owner: hover an AH weapon after /reload; the "to track trainer" hint should be gone
-- [ ] Release smoke test: swap the dev symlink for the built zip, /reload, check tooltips and that /ww lists
-  only config and set, then restore the symlink
-
-## Release
-
-- [x] `make release VERSION=x.y.z` builds dist/WeaponWise-x.y.z.zip without Dev\ files or WeaponWiseDevDB
-- [x] Owner 2026-10-13: Orgrimmar pin works; Shift alternatives show
-- [x] Shift alternatives use the main trainer's format; "Hold Shift for other trainers" hint added
-- [x] Owner 2026-10-13: Shift updates the tooltip in place (RefreshData); coin icons show
-- [x] Owner 2026-10-13: pins correct in all six cities (/ww pin); Woo Ping moved to 63, 69 (owner)
-- [x] Owner 2026-10-13: Ctrl + Right-Click on a merchant item sets the pin and does not buy it
-- [x] Publish on CurseForge (owner, 2026-10-14); first release by manual zip upload, Forever game version
-- [x] MIT license (owner, 2026-10-14); release zips include LICENSE
-- [x] Release builds no longer create WeaponWiseDevDB
-- [ ] Owner: create the CurseForge project; I draft the description and changelog
-- [x] First commit 28e2c94 pushed to github.com/Cloudmancermedia/WeaponWise main (2026-10-13)
-
-## Spec note updates (all applied 2026-10-13)
-
-- [x] Rename M1-M4 to Phase 1-4 (applied 2026-10-13)
-- [x] Add the "New in Forever" requirement (section 2.5)
-- [x] Fix the examples: Hanashi (Orgrimmar) replaces Archibald; Sayoc replaces Ansekhwa as the alternative
-- [x] Known-skill line wording: "You know this weapon skill (current/max)"
+- Phase 5: damage preview
+- Automate CurseForge uploads from GitHub releases
+- Localization, travel-time routing, reputation-adjusted prices
 
 ## Decisions to revisit
 
